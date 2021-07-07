@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form method="post" action="/" th:object="${product}">
+
+    <label for="productId">Product ID</label>
+    <input id ="productId" type="text" th:field="*{productId}">
+
+    <label for="productName">Product Name</label>
+    <input id = "productName" type="text" th:field="*{productName}">
+
+    <label for="productDescription">productDescription</label>
+    <input id ="productDescription" type="text" th:field="*{productDescription}">
+
+    <label for="price">Price</label>
+    <input id="price" type="text" th:field="*{price}">
+
+    <input  type="submit" value="Add product"/>
+
+</form>
+
+<span th:if="${product.productId != null}" th:text="|${product.productId} ${product.productName} ${product.productDescription} ${product.price}|"></span>
+
+</body>
+</html>

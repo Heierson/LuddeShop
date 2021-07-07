@@ -1,10 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Products</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/style.css" th:href="'/style.css'">
 </head>
 <body>
+
+<div class="container">
+    <h1>Dog Accessories</h1>
+<div th:each="product : ${products}">
+<div class="row">
+    <div class="col-sm-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <img src="https://images.baxterboo.com/global/images/products/large/blue-polka-dot-dog-dress-with-matching-leash-1085.JPG" class="card-img-top" alt="Dog dress">
+                <h5 class="card-title">Product Name</h5>
+                <p class="card-text">Product Description</p>
+                <a href="productDetails.html" class="btn btn-primary">View</a>
+                <a href="cart.html" class="btn btn-primary">Buy</a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
 
 </body>
 </html>

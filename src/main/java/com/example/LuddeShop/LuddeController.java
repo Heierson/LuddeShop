@@ -15,11 +15,11 @@ import java.util.List;
 public class LuddeController {
 
     @Autowired
-    private ProductRepository repo;
+    private ProductService ps;
 
-    @GetMapping("/products")
+    @GetMapping("/allProducts")
     public String products(Model model) {
-        model.addAttribute("productlist", repo);
+        model.addAttribute("productlist", ps.getAllProducts());
         return "allProducts";
     }
 
@@ -32,7 +32,7 @@ public class LuddeController {
             cart = new ArrayList<>();
             session.setAttribute("cart", cart);
         }
-        Product product = repo.getProductById(id);
+        Product product = ps.getProduct(id);
         cart.add(product);
 
         return "allProducts";
@@ -42,9 +42,9 @@ public class LuddeController {
     public String removeProduct(HttpSession session, @RequestParam int id) {
         @SuppressWarnings("unchecked")
         List<Product> cart = (List<Product>)session.getAttribute("cart");
-        Product productToRemove = repo.getProductById(id);
+        Product productToRemove = ps.getProduct(id);
         cart.remove(productToRemove);
-        return "cart";
+        return "allProducts";
     }
 
 }

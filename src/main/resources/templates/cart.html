@@ -1,10 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Shopping Cart</title>
 </head>
 <body>
+
+<tr>
+    <th>Product</th>
+    <th>Price</th>
+</tr>
+<tr th:each="item : ${cart}" th:unless="${item == null}">
+    <td th:text="${item.title}">Title</td>
+    <td th:text="${item.price}">Price</td>
+    <td th:href="'/removeproduct&id=' + ${item.id}">Remove</td>
+</tr>
 
 </body>
 </html>

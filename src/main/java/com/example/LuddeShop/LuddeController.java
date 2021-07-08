@@ -65,4 +65,10 @@ public class LuddeController {
         return "allProducts";
     }
 
+    @GetMapping("/productDetails/{id}")
+    public String viewProductDetails(Model model, @PathVariable int id) {
+        model.addAttribute("product", productService.getProduct(id));
+        return "productDetails";
+    }
+
 }

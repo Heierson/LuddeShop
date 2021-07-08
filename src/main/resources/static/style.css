@@ -1,8 +1,39 @@
-h1{
+body {
+padding-left: 40px;
+padding-right: 40px;
+margin left: 20px;
+margin right: 20px;
+}
+
+h1 {
 text-align: center;
 }
 
-.card{
+.productNameTxt {
+font-size: 30px;
+}
+
+.productImage {
+width: 300px
+}
+
+.priceTxt {
+font-size: 26px;
+}
+
+.descriptionTxt {
+font size: 22px;
+}
+
+.categoryTxt {
+background-color: #e6e6e6;
+display: inline-flex;
+font-size: 14px;
+padding:5px;
+background-color: #e6e6e6;
+}
+
+.card {
 width: 250px;
 }
 

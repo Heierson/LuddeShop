@@ -10,16 +10,20 @@ public class ProductService {
     @Autowired
     ProductRepository productRepository;
 
-    Product addProductToRepository(Product p){
+    Product addProductToRepository(Product p) {
         productRepository.addProduct(p);
         return p;
     }
 
-    void deleteProductFromRepository(Integer id){
+    void deleteProductFromRepository(Integer id) {
         productRepository.deleteProduct(id);
     }
 
     public List<Product> getAllProducts() {
         return productRepository.getProducts();
+    }
+
+    Product getProduct(int id) {
+        return productRepository.getProduct(id);
     }
 }

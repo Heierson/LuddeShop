@@ -20,11 +20,14 @@
     <label for="price">Price</label>
     <input id="price" type="text" th:field="*{price}">
 
+    <label for="productCategory">Product Category</label>
+    <input id="productCategory" type="text" th:field="*{productCategory}">
+
     <input  type="submit" value="Add product"/>
 
 </form>
 
-<span th:if="${product.productId != null}" th:text="|${product.productId} ${product.productName} ${product.productDescription} ${product.price}|"></span>
+<span th:if="${product.productId != null}" th:text="|${product.productId} ${product.productName} ${product.productDescription} ${product.price} ${product.productCategory}|"></span>
 
 </body>
 </html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Check out</title>
+</head>
+<body>
+
+<table>
+  <thead>
+  <tr>
+    <th>Product</th>
+    <th>Price</th>
+  </tr>
+  </thead>
+  <tr th:each="product : ${session.cart}" th:unless="${session.cart.isEmpty()}">
+    <td th:text="${product.productName}">Title</td>
+    <td th:text="${product.price}">Price</td>
+  </tr>
+  <tr>
+    <td rowspan="2">To pay</td>
+    <td th:text="${session.sum}"></td>
+  </tr>
+</table>
+
+<form method="post">
+  <p>Select payment method</p>
+  <input type="radio" id="card" name="paymentMethod" value="Card">
+  <label for="card">Card</label><br>
+  <input type="radio" id="swish" name="paymentMethod" value="Swish">
+  <label for="swish">Swish</label><br>
+  <input type="radio" id="klarna" name="paymentMethod" value="Klarna">
+  <label for="klarna">Klarna</label>
+  <input type="submit" value="Pay now">
+</form>
+
+</body>
+</html>

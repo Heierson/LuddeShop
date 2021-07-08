@@ -49,7 +49,7 @@ public class LuddeController {
         if(session.getAttribute("userName") != null) {
             Product product = new Product();
             model.addAttribute("products", productService.getAllProducts());
-            return "redirect:/addProduct";
+            return "addProduct";
         }
 
         return "redirect:/login";
@@ -89,7 +89,6 @@ public class LuddeController {
         }
         Product product = productService.getProduct(id);
         cart.add(product);
-        session.setAttribute(product.getProductName(), 1);
         getSum(session, cart);
         return "redirect:/allProducts";
     }
@@ -102,6 +101,22 @@ public class LuddeController {
         cart.remove(productToRemove);
         getSum(session, cart);
         return "redirect:/cart";
+    }
+
+    @GetMapping("/checkout")
+    public String checkOut(HttpSession session) {
+        return "checkout";
+    }
+
+    @PostMapping("/checkout")
+    public String checkedOut(HttpSession session) {
+        List<Product> cart = (List<Product>) session.getAttribute("cart");
+        for (Product product : cart) {
+            productService.deleteProductFromRepository(product.getProductId());
+        }
+        session.removeAttribute("cart");
+        session.removeAttribute("sum");
+        return "redirect:/allProducts";
     }
 
     public static void getSum(HttpSession session, List<Product> cart) {

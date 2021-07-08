@@ -23,7 +23,7 @@
                         <p class="card-text" th:text="${product.productDescription}"></p>
                         <p class="card-text" th:text="${product.price} + ' kr'"></p>
                         <a href="productDetails.html" class="btn btn-primary float-bottom">View</a>
-                        <a href="cart.html" class="btn btn-primary float-bottom">Buy</a>
+                        <a th:href="'/addproduct?id=' + ${product.productId}" class="btn btn-primary float-bottom">Buy</a>
                     </div>
                 </div>
             </div>

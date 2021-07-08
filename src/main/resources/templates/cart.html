@@ -23,5 +23,8 @@
         <td th:text="${session.sum}"></td>
     </tr>
 </table>
+
+<a href="/checkout" th:unless="${session.cart.isEmpty()}">Check out</a>
+
 </body>
 </html>

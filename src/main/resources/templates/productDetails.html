@@ -16,7 +16,7 @@
 
 <div>
     <p><img class="productImage" th:src="'images/' + ${product.productId} + '.jpg'" th:alt="${product.productName}"/></p>
-    <p class="priceTxt" th:text="${product.price} + ' kr'"></p>
+    <p class="priceTxt" th:text="${#numbers.formatDecimal(product.price,1,2)} + ' kr'"></p>
     <p class="descriptionTxt" th:text="${product.productDescription}"></p>
     <p class="categoryTxt" th:text="${product.productCategory}"></p>
 </div>

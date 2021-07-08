@@ -36,7 +36,7 @@ public class LuddeController {
 
         if(session.getAttribute("userName") != null){
             model.addAttribute("products", productService.getAllProducts());
-            return "allProducts";
+            return "redirect:/admin/add";
         }
         return "redirect:/login";
     }
@@ -85,8 +85,12 @@ public class LuddeController {
         }
 
         @GetMapping("/cart")
-        public String cart (HttpSession session){
+        public String cart (HttpSession session, Model model){
             List<Product> cart = (List) session.getAttribute("cart");
+            if (cart == null) {
+                cart = new ArrayList<>();
+                session.setAttribute("cart", cart);
+            }
             return "cart";
         }
 

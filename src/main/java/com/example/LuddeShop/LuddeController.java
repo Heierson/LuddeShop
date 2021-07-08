@@ -17,10 +17,15 @@ public class LuddeController {
     @Autowired
     ProductService productService;
 
-    @GetMapping("/login")
-    String firstLogin(){
-        return "login";
+    @GetMapping("/")
+    public String getToHomePage() {
+        return "index";
     }
+
+        @GetMapping("/login")
+        String firstLogin () {
+            return "login";
+        }
 
     @PostMapping("/login")
     String login(HttpSession session, Model model, @RequestParam String userName, @RequestParam String password){
@@ -65,58 +70,54 @@ public class LuddeController {
         return "redirect:/login";
     }
 
-    @GetMapping("/")
-    String index(){
-        return "index";
-    }
 
     @GetMapping("/logout")
     String logout(HttpSession session){
             return "logout";
     }
 
-    @GetMapping("/allProducts")
-    public String products(Model model) {
-        model.addAttribute("products", productService.getAllProducts());
-        return "allProducts";
-    }
-
-    @GetMapping("/cart")
-    public String cart(HttpSession session) {
-        List<Product> cart = (List)session.getAttribute("cart");
-        return "cart";
-    }
-
-    @GetMapping("/addproduct")
-    public String addProduct(HttpSession session, @RequestParam int id) {
-
-        @SuppressWarnings("unchecked")
-        List<Product> cart = (List<Product>) session.getAttribute("cart");
-        if (cart == null) {
-            cart = new ArrayList<>();
-            session.setAttribute("cart", cart);
+        @GetMapping("/allProducts")
+        public String products (Model model){
+            model.addAttribute("products", productService.getAllProducts());
+            return "allProducts";
         }
-        Product product = productService.getProduct(id);
-        cart.add(product);
-        session.setAttribute(product.getProductName(), 1);
-        getSum(session, cart);
-        return "redirect:/allProducts";
-    }
 
-    @GetMapping("/removeproduct")
-    public String removeProduct(HttpSession session, @RequestParam int id) {
-        @SuppressWarnings("unchecked")
-        List<Product> cart = (List<Product>) session.getAttribute("cart");
-        Product productToRemove = productService.getProduct(id);
-        cart.remove(productToRemove);
-        getSum(session, cart);
-        return "redirect:/cart";
-    }
+        @GetMapping("/cart")
+        public String cart (HttpSession session){
+            List<Product> cart = (List) session.getAttribute("cart");
+            return "cart";
+        }
 
-    public static void getSum(HttpSession session, List<Product> cart) {
-        double sum = ProductService.sum(cart);
-        session.setAttribute("sum", sum);
-    }
+        @GetMapping("/addproduct")
+        public String addProduct (HttpSession session,@RequestParam int id){
+
+            @SuppressWarnings("unchecked")
+            List<Product> cart = (List<Product>) session.getAttribute("cart");
+            if (cart == null) {
+                cart = new ArrayList<>();
+                session.setAttribute("cart", cart);
+            }
+            Product product = productService.getProduct(id);
+            cart.add(product);
+            session.setAttribute(product.getProductName(), 1);
+            getSum(session, cart);
+            return "redirect:/allProducts";
+        }
+
+        @GetMapping("/removeproduct")
+        public String removeProduct (HttpSession session,@RequestParam int id){
+            @SuppressWarnings("unchecked")
+            List<Product> cart = (List<Product>) session.getAttribute("cart");
+            Product productToRemove = productService.getProduct(id);
+            cart.remove(productToRemove);
+            getSum(session, cart);
+            return "redirect:/cart";
+        }
+
+        public static void getSum (HttpSession session, List < Product > cart){
+            double sum = ProductService.sum(cart);
+            session.setAttribute("sum", sum);
+        }
 
     @GetMapping("/productDetails")
     public String viewProductDetails(Model model, @RequestParam int id) {

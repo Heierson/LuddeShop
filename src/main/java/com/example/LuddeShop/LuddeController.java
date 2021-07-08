@@ -23,14 +23,15 @@ public class LuddeController {
     }
 
     @PostMapping("/login")
-    String login(HttpSession session, @RequestParam String userName, @RequestParam String password){
+    String login(HttpSession session, Model model, @RequestParam String userName, @RequestParam String password){
         if(userName.equals("admin")&password.equals("dogs")){
             session.setAttribute("loggedIn", true);
             session.setAttribute("userName", userName);
         }
 
-        if((boolean)session.getAttribute("loggedIn") == true){
-            return "redirect:/allProducts";
+        if(session.getAttribute("userName") != null){
+            model.addAttribute("products", productService.getAllProducts());
+            return "allProducts";
         }
         return "redirect:/login";
     }
@@ -47,11 +48,11 @@ public class LuddeController {
     @GetMapping("/admin/add")
     String showAddPage(HttpSession session,Model model) {
         if(session.getAttribute("userName") != null) {
+            //need to add this empty object to the model in order for the addProduct template to function
             Product product = new Product();
-            model.addAttribute("products", productService.getAllProducts());
-            return "redirect:/addProduct";
+            model.addAttribute("product", product);
+            return "addProduct";
         }
-
         return "redirect:/login";
     }
 
@@ -59,11 +60,19 @@ public class LuddeController {
     String addProduct(HttpSession session,Model model, @ModelAttribute Product product) {
         if(session.getAttribute("userName") != null) {
             productService.addProductToRepository(product);
-            model.addAttribute("products", productService.getAllProducts());
             return "redirect:/allProducts";
         }
         return "redirect:/login";
+    }
 
+    @GetMapping("/")
+    String index(){
+        return "index";
+    }
+
+    @GetMapping("/logout")
+    String logout(HttpSession session){
+            return "logout";
     }
 
     @GetMapping("/allProducts")

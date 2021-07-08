@@ -15,16 +15,15 @@
 <div class="container">
     <h1>Dog Accessories</h1>
     <div class="row">
-        <div th:each="product : ${products}">
-            <div class="col-sm-3">
-                <div class="card h-100">
+                <div th:each="product : ${products}" class="card">
                     <div class="card-body">
-                        <img src="https://images.baxterboo.com/global/images/products/large/blue-polka-dot-dog-dress-with-matching-leash-1085.JPG"
+                        <img th:src="@{/static/images/1001.jpg}"
                              class="card-img-top" alt="Dog dress">
-                        <h5 class="card-title">Product Name</h5>
-                        <p class="card-text">Product Description</p>
-                        <a href="productDetails.html" class="btn btn-primary">View</a>
-                        <a th:href="'/addproduct?id=' + ${product.getProductId()}" class="btn btn-primary">Buy</a>
+                        <h5 class="card-title" th:text="${product.productName}"></h5>
+                        <p class="card-text" th:text="${product.productDescription}"></p>
+                        <p class="card-text" th:text="${product.price} + ' kr'"></p>
+                        <a href="productDetails.html" class="btn btn-primary float-bottom">View</a>
+                        <a href="cart.html" class="btn btn-primary float-bottom">Buy</a>
                     </div>
                 </div>
             </div>

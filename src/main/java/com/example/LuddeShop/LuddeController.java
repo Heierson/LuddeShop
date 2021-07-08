@@ -15,24 +15,53 @@ public class LuddeController {
     @Autowired
     ProductService productService;
 
+    @GetMapping("/login")
+    String firstLogin(){
+        return "login";
+    }
+
+    @PostMapping("/login")
+    String login(HttpSession session, @RequestParam String userName, @RequestParam String password){
+        if(userName.equals("admin")&password.equals("dogs")){
+            session.setAttribute("loggedIn", true);
+            session.setAttribute("userName", userName);
+        }
+
+        if((boolean)session.getAttribute("loggedIn") == true){
+            return "redirect:/allProducts";
+        }
+        return "redirect:/login";
+    }
+
     @GetMapping("/admin/delete/{id}")
-    String deleteProduct(Model model, @PathVariable Integer id) {
-        productService.deleteProductFromRepository(id);
-        return "allProducts";
+    String deleteProduct(HttpSession session,Model model, @PathVariable Integer id) {
+        if(session.getAttribute("userName") != null) {
+            productService.deleteProductFromRepository(id);
+            return "redirect:/allProducts";
+        }
+        return "redirect:/login";
     }
 
     @GetMapping("/admin/add")
-    String showAddPage(Model model) {
-        Product product = new Product();
-        model.addAttribute("product", product);
-        return "addProduct";
+    String showAddPage(HttpSession session,Model model) {
+        if(session.getAttribute("userName") != null) {
+            Product product = new Product();
+            model.addAttribute("products", productService.getAllProducts());
+            return "redirect:/addProduct";
+        }
+
+        return "redirect:/login";
     }
 
     @PostMapping("/admin/add")
-    String addProduct(Model model, @ModelAttribute Product product) {
-        productService.addProductToRepository(product);
-        model.addAttribute(product);
-        return "redirect:/allProducts";
+    String addProduct(HttpSession session,Model model, @ModelAttribute Product product) {
+        if(session.getAttribute("userName") != null) {
+            productService.addProductToRepository(product);
+            model.addAttribute("products", productService.getAllProducts());
+            return "redirect:/allProducts";
+        }
+        return "redirect:/login";
+
     }
 
     @GetMapping("/allProducts")

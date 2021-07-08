@@ -3,25 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Shopping Cart</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/style.css" th:href="'/style.css'">
 </head>
 <body>
 <a href="/allProducts">Back</a>
-<table>
+<table id="cart">
     <thead>
         <tr>
             <th>Product</th>
             <th>Price</th>
+            <th></th>
         </tr>
     </thead>
     <tr th:each="product : ${session.cart}" th:unless="${session.cart.isEmpty()}">
         <td th:text="${product.productName}">Title</td>
-        <td th:text="${product.price}">Price</td>
+        <td th:text="${#numbers.formatDecimal(product.price,1,2)}"></td>
         <td><a th:href="'/removeproduct?id=' + ${product.productId}">Remove</a></td>
     </tr>
     <tr>
-        <td rowspan="3">Grand total</td>
-        <td th:text="${session.sum}"></td>
+        <td class="total" rowspan="2">Grand total</td>
+        <td class="total" th:text="${#numbers.formatDecimal(session.sum,1,2)}"></td>
+        <td class="total"><a href="/checkout" th:unless="${session.cart.isEmpty()}">Check out</a></td>
     </tr>
 </table>
+
 </body>
 </html>

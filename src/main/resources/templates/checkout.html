@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Check out</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/style.css" th:href="'/style.css'">
+</head>
+<body>
+
+<table id="checkout">
+  <thead>
+  <tr>
+    <th>Product</th>
+    <th>Price</th>
+  </tr>
+  </thead>
+  <tr th:each="product : ${session.cart}" th:unless="${session.cart.isEmpty()}">
+    <td th:text="${product.productName}">Title</td>
+    <td th:text="${#numbers.formatDecimal(product.price,1,2)}">Price</td>
+  </tr>
+  <tr>
+    <td rowspan="2">To pay</td>
+    <td th:text="${#numbers.formatDecimal(session.sum,1,2)}"></td>
+  </tr>
+</table>
+
+<form method="post">
+  <p>Select payment method</p>
+  <input type="radio" id="card" name="paymentMethod" value="Card">
+  <label for="card">Card</label><br>
+  <input type="radio" id="swish" name="paymentMethod" value="Swish">
+  <label for="swish">Swish</label><br>
+  <input type="radio" id="klarna" name="paymentMethod" value="Klarna">
+  <label for="klarna">Klarna</label>
+  <p><input type="submit" value="Pay now"></p>
+</form>
+
+</body>
+</html>

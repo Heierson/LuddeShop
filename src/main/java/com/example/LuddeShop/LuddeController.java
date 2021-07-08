@@ -58,6 +58,7 @@ public class LuddeController {
             model.addAttribute("product", product);
             return "addProduct";
         }
+
         return "redirect:/login";
     }
 
@@ -65,6 +66,7 @@ public class LuddeController {
     String addProduct(HttpSession session,Model model, @ModelAttribute Product product) {
         if(session.getAttribute("userName") != null) {
             productService.addProductToRepository(product);
+            model.addAttribute("products", productService.getAllProducts());
             return "redirect:/allProducts";
         }
         return "redirect:/login";
@@ -91,18 +93,17 @@ public class LuddeController {
         @GetMapping("/addproduct")
         public String addProduct (HttpSession session,@RequestParam int id){
 
-            @SuppressWarnings("unchecked")
-            List<Product> cart = (List<Product>) session.getAttribute("cart");
-            if (cart == null) {
-                cart = new ArrayList<>();
-                session.setAttribute("cart", cart);
-            }
-            Product product = productService.getProduct(id);
-            cart.add(product);
-            session.setAttribute(product.getProductName(), 1);
-            getSum(session, cart);
-            return "redirect:/allProducts";
+        @SuppressWarnings("unchecked")
+        List<Product> cart = (List<Product>) session.getAttribute("cart");
+        if (cart == null) {
+            cart = new ArrayList<>();
+            session.setAttribute("cart", cart);
         }
+        Product product = productService.getProduct(id);
+        cart.add(product);
+        getSum(session, cart);
+        return "redirect:/allProducts";
+    }
 
         @GetMapping("/removeproduct")
         public String removeProduct (HttpSession session,@RequestParam int id){
@@ -114,10 +115,26 @@ public class LuddeController {
             return "redirect:/cart";
         }
 
-        public static void getSum (HttpSession session, List < Product > cart){
-            double sum = ProductService.sum(cart);
-            session.setAttribute("sum", sum);
+    @GetMapping("/checkout")
+    public String checkOut(HttpSession session) {
+        return "checkout";
+    }
+
+    @PostMapping("/checkout")
+    public String checkedOut(HttpSession session) {
+        List<Product> cart = (List<Product>) session.getAttribute("cart");
+        for (Product product : cart) {
+            productService.deleteProductFromRepository(product.getProductId());
         }
+        session.removeAttribute("cart");
+        session.removeAttribute("sum");
+        return "redirect:/allProducts";
+    }
+
+    public static void getSum(HttpSession session, List<Product> cart) {
+        double sum = ProductService.sum(cart);
+        session.setAttribute("sum", sum);
+    }
 
     @GetMapping("/productDetails")
     public String viewProductDetails(Model model, @RequestParam int id) {

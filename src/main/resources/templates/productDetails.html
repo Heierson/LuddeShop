@@ -1,22 +1,24 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8"></meta>
+    <meta charset="UTF-8">
     <title th:text="${product.productName}"></title>
 </head>
 <body>
 
+<p><a href="/allProducts">Back to all products</a></p>
+
 <h1 th:text="${product.productName}">Product Name</h1>
 
 <div>
-    <img src="${product.productId} + '.jpg'"/>
-    <span class="priceTxt" th:text="${product.price} + ' kr'"></span>
-    <span class="descriptionTxt" th:text="${product.productDescription}"></span>
-    <span class="categoryTxt" th:text="${product.productCategory}"></span>
+    <p><img class="productImage" th:src="'images/' + ${product.productId} + '.jpg'" th:alt="${product.productName}"/></p>
+    <p class="priceTxt" th:text="${product.price} + ' kr'"></p>
+    <p class="descriptionTxt" th:text="${product.productDescription}"></p>
+    <p class="categoryTxt" th:text="${product.productCategory}"></p>
 </div>
 
 <div>
-    <p><a th:href="/allProducts">Tillbaka till produkterna</a></p>
+
 </div>
 
 </body>

@@ -109,9 +109,10 @@ public class LuddeController {
         session.setAttribute("sum", sum);
     }
 
-    @GetMapping("/productDetails/{id}")
-    public String viewProductDetails(Model model, @PathVariable int id) {
-        model.addAttribute("product", productService.getProduct(id));
+    @GetMapping("/productDetails")
+    public String viewProductDetails(Model model, @RequestParam int id) {
+        Product productToView = productService.getProduct(id);
+        model.addAttribute("product", productToView);
         return "productDetails";
     }
 

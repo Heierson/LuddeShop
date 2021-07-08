@@ -16,14 +16,15 @@
     <h1>Dog Accessories</h1>
     <div class="row">
                 <div th:each="product : ${products}" class="card">
-                    <div class="card-body">
+                    <div class="card-body d-flex flex-column">
                         <img th:src="@{/static/images/1001.jpg}"
                              class="card-img-top" alt="Dog dress">
                         <h5 class="card-title" th:text="${product.productName}"></h5>
                         <p class="card-text" th:text="${product.productDescription}"></p>
                         <p class="card-text" th:text="${product.price} + ' kr'"></p>
-                        <a href="productDetails.html" class="btn btn-primary float-bottom">View</a>
-                        <a href="cart.html" class="btn btn-primary float-bottom">Buy</a>
+                        <div class="mt-auto"><a href="productDetails.html" class="btn btn-primary float-bottom">View</a>
+                            <a th:href="'/addproduct?id=' + ${product.productId}" class="btn btn-primary float-bottom">Buy</a></div>
+
                     </div>
                 </div>
             </div>

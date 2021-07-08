@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form method="post" action="/" th:object="${product}">
+<form method="post" action="/admin/add" th:object="${product}">
 
     <label for="productId">Product ID</label>
     <input id ="productId" type="text" th:field="*{productId}">

@@ -32,12 +32,12 @@ public class LuddeController {
     String addProduct(Model model, @ModelAttribute Product product) {
         productService.addProductToRepository(product);
         model.addAttribute(product);
-        return "allProducts";
+        return "redirect:/allProducts";
     }
 
     @GetMapping("/allProducts")
     public String products(Model model) {
-        model.addAttribute("productlist", productService.getAllProducts());
+        model.addAttribute("products", productService.getAllProducts());
         return "allProducts";
     }
 

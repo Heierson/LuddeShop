@@ -7,24 +7,33 @@
 <body>
 
 <form method="post" action="/admin/add" th:object="${product}">
+    <div >
+    <label class="descriptionTxt" for="productId">Product ID</label>
+    <input class="descriptionTxt formInput" id ="productId" type="text" th:field="*{productId}">
+    </div>
+    <div>
 
-    <label for="productId">Product ID</label>
-    <input id ="productId" type="text" th:field="*{productId}">
+    <label class="descriptionTxt forminput" for="productName">Product Name</label>
+    <input class="descriptionTxt formInput" id = "productName" type="text" th:field="*{productName}">
+    </div>
 
-    <label for="productName">Product Name</label>
-    <input id = "productName" type="text" th:field="*{productName}">
+    <div>
 
-    <label for="productDescription">productDescription</label>
-    <input id ="productDescription" type="text" th:field="*{productDescription}">
+    <label class="descriptionTxt formInput" for="productDescription">Product Description</label>
+    <input class="descriptionTxt formInput" id ="productDescription" type="text" th:field="*{productDescription}">
+    </div>
+    <div>
 
-    <label for="price">Price</label>
-    <input id="price" type="text" th:field="*{price}">
-
-    <label for="productCategory">Product Category</label>
-    <input id="productCategory" type="text" th:field="*{productCategory}">
-
+    <label class="descriptionTxt" for="price">Price</label>
+    <input class="descriptionTxt" id="price" type="text" th:field="*{price}">
+    </div>
+    <div>
+    <label class="descriptionTxt" for="productCategory">Product Category</label>
+    <input class="descriptionTxt" id="productCategory" type="text" th:field="*{productCategory}">
+    </div>
+    <div>
     <input  type="submit" value="Add product"/>
-
+    </div>
 </form>
 
 </body>

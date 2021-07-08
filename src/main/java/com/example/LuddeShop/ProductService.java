@@ -3,6 +3,8 @@ package com.example.LuddeShop;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProductService {
     @Autowired
@@ -15,5 +17,9 @@ public class ProductService {
 
     void deleteProductFromRepository(Integer id){
         productRepository.deleteProduct(id);
+    }
+
+    public List<Product> getAllProducts() {
+        return productRepository.getProducts();
     }
 }

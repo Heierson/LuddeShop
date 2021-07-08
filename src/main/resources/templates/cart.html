@@ -15,12 +15,12 @@
     </thead>
     <tr th:each="product : ${session.cart}" th:unless="${session.cart.isEmpty()}">
         <td th:text="${product.productName}">Title</td>
-        <td th:text="${product.price}">Price</td>
+        <td th:text="${#numbers.formatDecimal(product.price,1,2)}"></td>
         <td><a th:href="'/removeproduct?id=' + ${product.productId}">Remove</a></td>
     </tr>
     <tr>
         <td rowspan="3">Grand total</td>
-        <td th:text="${session.sum}"></td>
+        <td th:text="${#numbers.formatDecimal(session.sum,1,2)}"></td>
     </tr>
 </table>
 

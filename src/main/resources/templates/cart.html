@@ -5,16 +5,23 @@
     <title>Shopping Cart</title>
 </head>
 <body>
-
-<tr>
-    <th>Product</th>
-    <th>Price</th>
-</tr>
-<tr th:each="item : ${cart}" th:unless="${item == null}">
-    <td th:text="${item.title}">Title</td>
-    <td th:text="${item.price}">Price</td>
-    <td th:href="'/removeproduct&id=' + ${item.id}">Remove</td>
-</tr>
-
+<a href="/allProducts">Back</a>
+<table>
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tr th:each="product : ${session.cart}" th:unless="${session.cart.isEmpty()}">
+        <td th:text="${product.productName}">Title</td>
+        <td th:text="${product.price}">Price</td>
+        <td><a th:href="'/removeproduct?id=' + ${product.productId}">Remove</a></td>
+    </tr>
+    <tr>
+        <td rowspan="3">Grand total</td>
+        <td th:text="${session.sum}"></td>
+    </tr>
+</table>
 </body>
 </html>

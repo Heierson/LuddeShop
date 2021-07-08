@@ -26,4 +26,14 @@ public class ProductService {
     Product getProduct(int id) {
         return productRepository.getProduct(id);
     }
+
+    static double sum(List<Product> products) {
+        double sum = 0;
+        if(!products.isEmpty()) {
+            for (Product item : products) {
+                sum += item.getPrice();
+            }
+        }
+        return sum;
+    }
 }

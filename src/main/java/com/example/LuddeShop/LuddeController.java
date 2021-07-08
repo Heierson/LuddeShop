@@ -1,11 +1,13 @@
 package com.example.LuddeShop;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import javax.swing.text.html.HTML;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +43,12 @@ public class LuddeController {
         return "allProducts";
     }
 
+    @GetMapping("/cart")
+    public String cart(HttpSession session) {
+        List<Product> cart = (List)session.getAttribute("cart");
+        return "cart";
+    }
+
     @GetMapping("/addproduct")
     public String addProduct(HttpSession session, @RequestParam int id) {
 
@@ -52,8 +60,9 @@ public class LuddeController {
         }
         Product product = productService.getProduct(id);
         cart.add(product);
-
-        return "allProducts";
+        session.setAttribute(product.getProductName(), 1);
+        getSum(session, cart);
+        return "redirect:/allProducts";
     }
 
     @GetMapping("/removeproduct")
@@ -62,7 +71,13 @@ public class LuddeController {
         List<Product> cart = (List<Product>) session.getAttribute("cart");
         Product productToRemove = productService.getProduct(id);
         cart.remove(productToRemove);
-        return "allProducts";
+        getSum(session, cart);
+        return "redirect:/cart";
+    }
+
+    public static void getSum(HttpSession session, List<Product> cart) {
+        double sum = ProductService.sum(cart);
+        session.setAttribute("sum", sum);
     }
 
 }

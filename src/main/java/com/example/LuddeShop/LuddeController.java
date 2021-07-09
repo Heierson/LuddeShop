@@ -147,5 +147,20 @@ public class LuddeController {
         return "productDetails";
     }
 
+    @GetMapping("/addproductdetail")
+    public String addProductDetail (HttpSession session,@RequestParam int id){
+
+        @SuppressWarnings("unchecked")
+        List<Product> cart = (List<Product>) session.getAttribute("cart");
+        if (cart == null) {
+            cart = new ArrayList<>();
+            session.setAttribute("cart", cart);
+        }
+        Product product = productService.getProduct(id);
+        cart.add(product);
+        getSum(session, cart);
+        return "redirect:/cart";
+    }
+
 
 }

@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="../static/style.css" th:href="'/style.css'">
 </head>
 <body>
-
+<div class="marg">
+  <a href="/checkout">Back to checkout</a>
+</div>
 <table id="cart">
   <thead>
     <tr>
@@ -25,17 +27,18 @@
       <td th:text="${#numbers.formatDecimal(session.sum,1,2)}"></td>
     </tr>
 </table>
-
-<form method="post">
-  <p>Select payment method</p>
-  <input type="radio" id="card" name="paymentMethod" value="Card">
-  <label for="card">Card</label><br>
-  <input type="radio" id="swish" name="paymentMethod" value="Swish">
-  <label for="swish">Swish</label><br>
-  <input type="radio" id="klarna" name="paymentMethod" value="Klarna">
-  <label for="klarna">Klarna</label>
-  <p><input type="submit" value="Pay now"></p>
-</form>
+<div class="marg">
+  <form method="post">
+    <p>Select payment method</p>
+    <input type="radio" id="card" name="paymentMethod" value="Card">
+    <label for="card">Card</label><br>
+    <input type="radio" id="swish" name="paymentMethod" value="Swish">
+    <label for="swish">Swish</label><br>
+    <input type="radio" id="klarna" name="paymentMethod" value="Klarna">
+    <label for="klarna">Klarna</label>
+    <p><input type="submit" value="Pay now" id="pay"></p>
+  </form>
+</div>
 
 </body>
 </html>

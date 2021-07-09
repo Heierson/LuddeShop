@@ -9,21 +9,21 @@
 </head>
 <body>
 
-<table id="checkout">
+<table id="cart">
   <thead>
-  <tr>
-    <th>Product</th>
-    <th>Price</th>
-  </tr>
+    <tr>
+      <th>Product</th>
+      <th>Price</th>
+    </tr>
   </thead>
-  <tr th:each="product : ${session.cart}" th:unless="${session.cart.isEmpty()}">
-    <td th:text="${product.productName}">Title</td>
-    <td th:text="${#numbers.formatDecimal(product.price,1,2)}">Price</td>
-  </tr>
-  <tr>
-    <td rowspan="2">To pay</td>
-    <td th:text="${#numbers.formatDecimal(session.sum,1,2)}"></td>
-  </tr>
+    <tr th:each="product : ${session.cart}" th:unless="${session.cart.isEmpty()}">
+      <td th:text="${product.productName}">Title</td>
+      <td th:text="${#numbers.formatDecimal(product.price,1,2)}">Price</td>
+    </tr>
+    <tr>
+      <td rowspan="2">To pay</td>
+      <td th:text="${#numbers.formatDecimal(session.sum,1,2)}"></td>
+    </tr>
 </table>
 
 <form method="post">

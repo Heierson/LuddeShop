@@ -23,11 +23,15 @@
         <td><a th:href="'/removeproduct?id=' + ${product.productId}">Remove</a></td>
     </tr>
     <tr>
-        <td class="total" rowspan="2">Grand total</td>
-        <td class="total" th:text="${#numbers.formatDecimal(session.sum,1,2)}"></td>
-        <td class="total"><a href="/checkout" th:unless="${session.cart.isEmpty()}">Check out</a></td>
+        <th rowspan="1">Total</th>
+        <th th:text="${#numbers.formatDecimal(session.sum,1,2)}"></th>
+        <th></th>
     </tr>
 </table>
+
+
+<a href="/checkout" th:unless="${session.cart.isEmpty()}" class="link-warning">Checkout</a>
+
 
 </body>
 </html>

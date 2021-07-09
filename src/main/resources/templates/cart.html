@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="../static/style.css" th:href="'/style.css'">
 </head>
 <body>
-<a href="/allProducts">Back</a>
+<div class="marg">
+    <a href="/allProducts">Back to products</a>
+</div>
 <table id="cart">
     <thead>
         <tr>
@@ -22,12 +24,18 @@
         <td th:text="${#numbers.formatDecimal(product.price,1,2)}"></td>
         <td><a th:href="'/removeproduct?id=' + ${product.productId}">Remove</a></td>
     </tr>
+    <tfoot>
     <tr>
-        <td class="total" rowspan="2">Grand total</td>
-        <td class="total" th:text="${#numbers.formatDecimal(session.sum,1,2)}"></td>
-        <td class="total"><a href="/checkout" th:unless="${session.cart.isEmpty()}">Check out</a></td>
+        <th rowspan="1">Total</th>
+        <th th:text="${#numbers.formatDecimal(session.sum,1,2)}"></th>
+        <th></th>
     </tr>
+    </tfoot>
 </table>
+
+<div class="marg">
+<a href="/checkout" th:unless="${session.cart.isEmpty()}" class="link-warning">Checkout</a>
+</div>
 
 </body>
 </html>

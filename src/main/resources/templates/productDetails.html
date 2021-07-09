@@ -5,25 +5,75 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="../static/style.css" th:href="'/style.css'">
-    <title th:text="${product.productName}"></title>
+    <title th:text="'Köp ' + ${product.productName} + ' hos Maison de Luddé'"></title>
 </head>
 
 <body>
 
-<p><a href="/allProducts">Back to all products</a></p>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Luddes</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/allProducts">Products</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Categories
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/cart" tabindex="-1" aria-disabled="true">Cart</a>
+                </li>
+            </ul>
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Admin</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
-<p class="productNameTxt" th:text="${product.productName}">Product Name</p>
+<br><br>
 
-<div>
-    <p><img class="productImage" th:src="'images/' + ${product.productId} + '.jpg'" th:alt="${product.productName}"/></p>
-    <p class="priceTxt" th:text="${#numbers.formatDecimal(product.price,1,2)} + ' kr'"></p>
-    <p class="descriptionTxt" th:text="${product.productDescription}"></p>
-    <p class="categoryTxt" th:text="${product.productCategory}"></p>
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <img class="productImage" th:src="'images/' + ${product.productId} + '.jpg'" th:alt="${product.productName}"/>
+        </div>
+        <div class="col-md-5">
+            <span class="productNameTxt" th:text="${product.productName}">Product Name</span>
+            <p class="priceTxt" th:text="${#numbers.formatDecimal(product.price,1,2)} + ' kr'"></p>
+            <p class="descriptionTxt" th:text="${product.productDescription}"></p>
+            <p class="categoryTxt" th:text="${product.productCategory}"></p>
+            <p><a th:href="'/addproductdetail?id=' + ${product.productId}" class="btn btn-primary float-bottom">Add to cart</a></p>
+        </div>
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-1">
+        </div>
+    </div>
 </div>
-
-<div>
-
-</div>
-
 </body>
 </html>

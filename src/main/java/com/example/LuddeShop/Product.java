@@ -1,19 +1,21 @@
 package com.example.LuddeShop;
 
-public class Product {
+import javax.persistence.*;
 
-    private int productId;
+@Entity
+public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long productId;
     private String productName;
     private String productDescription;
     private double price;
     private String productCategory;
 
     public Product(){
-
     }
 
-    public Product(int productId, String productName, String productDescription, double price, String productCategory) {
-        this.productId = productId;
+    public Product(String productName, String productDescription, double price, String productCategory) {
         this.productName = productName;
         this.productDescription = productDescription;
         this.price = price;
@@ -28,11 +30,11 @@ public class Product {
         this.productCategory = productCategory;
     }
 
-    public int getProductId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public void setProductId(int productId) {
+    public void setProductId(Long productId) {
         this.productId = productId;
     }
 

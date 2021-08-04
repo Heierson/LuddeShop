@@ -6,19 +6,24 @@ import javax.persistence.*;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column (name="PRODUCTID")
     private Long productId;
+    @Column (name="PRODUCTNAME")
     private String productName;
+    @Column (name="PRODUCTDESCRIPTION")
     private String productDescription;
-    private double price;
+    @Column (name="PRODUCTPRICE")
+    private double ProductPrice;
+    @Column (name="PRODUCTCATEGORY")
     private String productCategory;
 
     public Product(){
     }
 
-    public Product(String productName, String productDescription, double price, String productCategory) {
+    public Product(String productName, String productDescription, double ProductPrice, String productCategory) {
         this.productName = productName;
         this.productDescription = productDescription;
-        this.price = price;
+        this.ProductPrice = ProductPrice;
         this.productCategory = productCategory;
     }
 
@@ -54,11 +59,11 @@ public class Product {
         this.productDescription = productDescription;
     }
 
-    public double getPrice() {
-        return price;
+    public double getProductPrice() {
+        return ProductPrice;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setProductPrice(double productPrice) {
+        this.ProductPrice = productPrice;
     }
 }

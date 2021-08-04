@@ -34,7 +34,7 @@ $(function(){
         </div>
         <div class="col-md-5">
             <span class="productNameTxt" th:text="${product.productName}">Product Name</span>
-            <p class="priceTxt" th:text="${#numbers.formatDecimal(product.price,1,2)} + ' kr'"></p>
+            <p class="priceTxt" th:text="${#numbers.formatDecimal(product.productPrice,1,2)} + ' kr'"></p>
             <p class="descriptionTxt" th:text="${product.productDescription}"></p>
             <p class="justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non metus in mi aliquam vestibulum id mattis sem. Quisque sed aliquam sapien. Suspendisse et est sed massa porttitor ultrices ac et justo. Donec consectetur elit ex, in placerat velit consequat sed. Praesent cursus nisl ultricies consectetur sagittis. Vivamus tincidunt sollicitudin libero id sagittis. Nam pellentesque tristique dui, a sollicitudin neque. Nunc rutrum elit sed eros volutpat, at placerat ante rhoncus.
             </p>

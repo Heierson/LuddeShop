@@ -8,30 +8,32 @@ import java.util.List;
 @Service
 public class ProductService {
     @Autowired
-    ProductRepository productRepository;
+    ProductRepos productRepository;
 
     Product addProductToRepository(Product p) {
-        productRepository.addProduct(p);
+        productRepository.save(p);
         return p;
     }
 
-    void deleteProductFromRepository(Integer id) {
-        productRepository.deleteProduct(id);
+    void deleteProductFromRepository(Long id) {
+        productRepository.deleteById(id);
     }
 
     public List<Product> getAllProducts() {
-        return productRepository.getProducts();
+        List<Product> products = (List<Product>)productRepository.findAll();
+        return products;
     }
 
-    Product getProduct(int id) {
-        return productRepository.getProduct(id);
+    //What if we looking for something that doesn't exist?
+    Product getProduct(Long id) {
+        return productRepository.findById(id).get();
     }
 
     static double sum(List<Product> products) {
         double sum = 0;
         if(!products.isEmpty()) {
             for (Product item : products) {
-                sum += item.getPrice();
+                sum += item.getProductPrice();
             }
         }
         return sum;

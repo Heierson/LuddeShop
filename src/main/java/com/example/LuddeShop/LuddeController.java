@@ -112,8 +112,18 @@ public class LuddeController {
     public String removeProduct(HttpSession session, @RequestParam Long id) {
         @SuppressWarnings("unchecked")
         List<Product> cart = (List<Product>) session.getAttribute("cart");
-        Product productToRemove = (Product)productService.getProduct(id);
-        cart.remove(productToRemove);
+        Product productToRemove = null;
+        for (Product product : cart) {
+            if (product.getProductId() == id){
+                productToRemove = product;
+               break;
+            }
+
+        }
+        if (productToRemove != null){
+            cart.remove(productToRemove);
+        }
+
         getSum(session, cart);
         return "redirect:/cart";
     }

@@ -3,9 +3,12 @@ package com.example.LuddeShop;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,8 +64,11 @@ public class LuddeController {
     }
 
     @PostMapping("/admin/add")
-    String addProduct(HttpSession session, Model model, @ModelAttribute Product product) {
+    String addProduct(HttpSession session, Model model, @Valid Product product, BindingResult result) {
         if (session.getAttribute("userName") != null) {
+            if (result.hasErrors()) {
+                return "addProduct";
+            }
             productService.addProductToRepository(product);
             model.addAttribute("products", productService.getAllProducts());
             return "redirect:/allProducts";
@@ -157,7 +163,7 @@ public class LuddeController {
     }
 
     public static void getSum(HttpSession session, List<Product> cart) {
-        double sum = ProductService.sum(cart);
+        Integer sum = ProductService.sum(cart);
         session.setAttribute("sum", sum);
     }
 

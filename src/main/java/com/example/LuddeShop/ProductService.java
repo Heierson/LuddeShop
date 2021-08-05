@@ -3,6 +3,8 @@ package com.example.LuddeShop;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -29,11 +31,11 @@ public class ProductService {
         return productRepository.findById(id).get();
     }
 
-    static double sum(List<Product> products) {
-        double sum = 0;
+    static Integer sum(List<Product> products) {
+        Integer sum = 0;
         if(!products.isEmpty()) {
             for (Product item : products) {
-                sum += item.getProductPrice();
+                sum  += item.getProductPrice();
             }
         }
         return sum;

@@ -1,6 +1,11 @@
 package com.example.LuddeShop;
 
+import org.hibernate.validator.constraints.Range;
+
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.validation.constraints.*;
+import java.math.BigDecimal;
 
 @Entity
 public class Product {
@@ -8,19 +13,31 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column (name="PRODUCTID")
     private Long productId;
+
     @Column (name="PRODUCTNAME")
+    @Size(max=64)
+    @NotEmpty
     private String productName;
+
     @Column (name="PRODUCTDESCRIPTION")
+    @Size(max=512)
+    @NotEmpty
     private String productDescription;
+
     @Column (name="PRODUCTPRICE")
-    private double ProductPrice;
+    @Positive
+    @NotNull
+    private Integer ProductPrice;
+
     @Column (name="PRODUCTCATEGORY")
+    @Size(max=64)
+    @NotEmpty
     private String productCategory;
 
     public Product(){
     }
 
-    public Product(String productName, String productDescription, double ProductPrice, String productCategory) {
+    public Product(String productName, String productDescription, Integer ProductPrice, String productCategory) {
         this.productName = productName;
         this.productDescription = productDescription;
         this.ProductPrice = ProductPrice;
@@ -59,11 +76,11 @@ public class Product {
         this.productDescription = productDescription;
     }
 
-    public double getProductPrice() {
+    public Integer getProductPrice() {
         return ProductPrice;
     }
 
-    public void setProductPrice(double productPrice) {
+    public void setProductPrice(Integer productPrice) {
         this.ProductPrice = productPrice;
     }
 }

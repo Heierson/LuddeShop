@@ -27,34 +27,39 @@ $(function(){
 <form class = "form-floating" method="post" action="/admin/add" th:object="${product}">
     <div class="row">
     <div class="mb-3 col-3">
+        <label class="form-label" for="productName">Product Name</label>
+        <input class="form-control" id = "productName" type="text" th:field="*{productName}" th:errorclass="errorClass">
+        <div th:if="${#fields.hasErrors('productName')}" class="errorClassText">Invalid product name</div>
+    </div>
+    </div>
 
-    <label class="form-label" for="productName">Product Name</label>
-    <input class="form-control" id = "productName" type="text" th:field="*{productName}">
-    </div>
-    </div>
     <div class="row">
-
     <div class="mb-3 col-3">
+        <label class="form-label" for="productDescription">Product Description</label>
+        <input class="form-control" id ="productDescription" type="text" th:field="*{productDescription}" th:errorclass="errorClass">
+        <div th:if="${#fields.hasErrors('productDescription')}" class="errorClassText">Invalid product description</div>
+    </div>
+    </div>
 
-    <label class="form-label" for="productDescription">Product Description</label>
-    <input class="form-control" id ="productDescription" type="text" th:field="*{productDescription}">
+    <div class="row">
+        <div class="mb-3 col-3">
+        <label class="form-label" for="price">Price</label>
+        <input class="form-control" id="price" type="number" min="1" th:field="*{productPrice}" th:errorclass="errorClass">
+            <div th:if="${#fields.hasErrors('productPrice')}" class="errorClassText">Price must be at least 1</div>
     </div>
-    <div class="mb-3 col-3">
+    </div>
 
-    <label class="form-label" for="price">Price</label>
-    <input class="form-control" id="price" type="text" th:field="*{productPrice}">
-    </div>
-    </div>
     <div class="row">
     <div class="mb-3 col-3">
     <label class="form-label" for="productCategory">Product Category</label>
-    <input class="form-control" id="productCategory" type="text" th:field="*{productCategory}">
+    <input class="form-control" id="productCategory" type="text" th:field="*{productCategory}" th:errorclass="errorClass">
+        <div th:if="${#fields.hasErrors('productCategory')}" class="errorClassText">Invalid product category</div>
     </div>
     </div>
+
     <br>
     <div class="row">
         <div class="mb-3 col-3">
-
         <button class="btn btn-lg btn-primary" type="submit">Add product</button>
             </div>
     </div>

@@ -37,7 +37,7 @@ public class LuddeController {
 
         if (session.getAttribute("userName") != null) {
             model.addAttribute("products", productService.getAllProducts());
-            return "redirect:/admin/add";
+            return "redirect:/warehouse";
         }
         return "redirect:/login";
     }
@@ -46,7 +46,7 @@ public class LuddeController {
     String deleteProduct(HttpSession session, Model model, @PathVariable Long id) {
         if (session.getAttribute("userName") != null) {
             productService.deleteProductFromRepository(id);
-            return "redirect:/allProducts";
+            return "redirect:/warehouse";
         }
         return "redirect:/login";
     }
@@ -71,10 +71,29 @@ public class LuddeController {
             }
             productService.addProductToRepository(product);
             model.addAttribute("products", productService.getAllProducts());
-            return "redirect:/allProducts";
+            return "redirect:/warehouse";
         }
         return "redirect:/login";
     }
+
+    @GetMapping("/admin/edit/{id}")
+    String edit(Model model, @PathVariable Long id){
+        Product product = productService.getProduct(id);
+        model.addAttribute("product", product);
+        return "addProduct";
+    }
+
+    @GetMapping("/warehouse")
+    String warehouse(Model model, HttpSession session){
+        if (session.getAttribute("userName") != null) {
+            List<Product> products = (List<Product>) productService.getAllProducts();
+            model.addAttribute("products", products);
+            return "warehouse";
+        }
+      return "redirect:/login";
+    }
+
+
 
 
     @GetMapping("/logout")

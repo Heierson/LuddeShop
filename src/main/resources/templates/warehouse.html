@@ -15,20 +15,33 @@
   <link rel="stylesheet" href="../static/style.css" th:href="'/style.css'">
 </head>
 <body>
+<div id="nav-placeholder">
 
+</div>
+
+<script>
+$(function(){
+  $("#nav-placeholder").load("nav.html");
+});
+</script>
+
+<br><br>
 
 <table id="cart">
   <thead>
   <tr>
     <th>Product</th>
     <th>Price</th>
-    <th></th>
+    <th>Remove</th>
+    <th>Edit</th>
   </tr>
   </thead>
   <tr th:each="product : ${products}" th:unless="${products.isEmpty()}">
     <td th:text="${product.productName}">Title</td>
     <td th:text="${#numbers.formatDecimal(product.productPrice,1,2)}"></td>
-    <td><a th:href="/admin/delete/' + ${product.productId}">Remove</a></td>
+    <td><a th:href="'/admin/delete/' + ${product.productId}">Remove Item</a></td>
+    <td><a th:href="'/admin/edit/' + ${product.productId}">Edit Item</a></td>
+
   </tr>
 </table>
 

@@ -103,8 +103,20 @@ public class LuddeController {
             session.setAttribute("cart", cart);
         }
         Product product = productService.getProduct(id);
-        cart.add(product);
-        getSum(session, cart);
+        boolean notInCart = true;
+        for (Product p : cart) {
+            if (p.getProductId() == id){
+                notInCart =false;
+
+        }
+
+        }
+        if (notInCart){
+            cart.add(product);
+            getSum(session, cart);
+        }
+
+
         return "redirect:/allProducts";
     }
 

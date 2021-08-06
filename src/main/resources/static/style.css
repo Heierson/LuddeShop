@@ -113,7 +113,11 @@ background-color: #E1EAF9;
     display: block;
      margin-left: auto;
      margin-right: auto;
+}
 
+.carousel-control-next,
+.carousel-control-prev {
+    filter: invert(80%);
 }
 
 .justify{

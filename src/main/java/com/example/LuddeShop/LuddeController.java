@@ -132,16 +132,12 @@ public class LuddeController {
         for (Product p : cart) {
             if (p.getProductId() == id){
                 notInCart =false;
-
         }
-
         }
         if (notInCart){
             cart.add(product);
             getSum(session, cart);
         }
-
-
         return "redirect:/allProducts";
     }
 
@@ -155,16 +151,13 @@ public class LuddeController {
                 productToRemove = product;
                break;
             }
-
         }
         if (productToRemove != null){
             cart.remove(productToRemove);
         }
-
         getSum(session, cart);
         return "redirect:/cart";
     }
-
     @GetMapping("/checkout")
     public String checkOut(HttpSession session) {
         return "checkout";
